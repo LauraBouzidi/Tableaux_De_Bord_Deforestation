@@ -49,7 +49,7 @@ for doc in os.listdir(path):
     for i in dic['content']:
         cont = cont + " " + i
     for j in dic['title']:
-        title = title + " " + i
+        title = title + " " + j
     dic['content'] = cont
     dic['title'] = title
     fichier1 = open(path2 + "clean_" + doc, "a", encoding = "utf_8")
