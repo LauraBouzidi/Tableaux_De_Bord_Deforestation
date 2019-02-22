@@ -1,39 +1,54 @@
-CREATE TABLE "articles" (
-  "id_article" int,
-  "titre" varchar,
-  "date_article" date
+CREATE TABLE `articles` 
+(
+	`id_article` int,
+	`titre` varchar(255),
+	`date_article` date
 );
 
-CREATE TABLE "comporte" (
-  "id_mot" int,
-  "id_article" int
+CREATE TABLE `comporte` 
+(
+	`id_mot` int,
+	`id_article` int
 );
 
-CREATE TABLE "zones" (
-  "id_zone" int,
-  "nom_zone" varchar
+CREATE TABLE `pays` 
+(
+	`id_pays` int,
+	`nom_pays` varchar(255)
 );
 
-CREATE TABLE "concerne" (
-  "id_zone" int,
-  "id_article" int
+CREATE TABLE `concerne` 
+(
+	`id_pays` int,
+	`id_article` int
 );
 
-CREATE TABLE "dates" (
-  "annee" date
+CREATE TABLE `mots_clef` 
+(
+	`id_mot` int,
+	`mot` varchar(255)
 );
 
-CREATE TABLE "mots_clef" (
-  "id_mot" int,
-  "mot" varchar
+CREATE TABLE `sentiments` 
+(
+	`id_sentiment` int,
+	`sentiment` varchar(255)
 );
 
-ALTER TABLE "dates" ADD FOREIGN KEY ("annee") REFERENCES "articles" ("date_article");
+CREATE TABLE `exprime` 
+(
+	`id_sentiment` int,
+	`id_article` int
+);
 
-ALTER TABLE "articles" ADD FOREIGN KEY ("id_article") REFERENCES "concerne" ("id_article");
+ALTER TABLE `articles` ADD FOREIGN KEY (`id_article`) REFERENCES `concerne` (`id_article`);
 
-ALTER TABLE "zones" ADD FOREIGN KEY ("id_zone") REFERENCES "concerne" ("id_zone");
+ALTER TABLE `pays` ADD FOREIGN KEY (`id_pays`) REFERENCES `concerne` (`id_pays`);
 
-ALTER TABLE "articles" ADD FOREIGN KEY ("id_article") REFERENCES "comporte" ("id_article");
+ALTER TABLE `articles` ADD FOREIGN KEY (`id_article`) REFERENCES `comporte` (`id_article`);
 
-ALTER TABLE "mots_clef" ADD FOREIGN KEY ("id_mot") REFERENCES "comporte" ("id_mot");
+ALTER TABLE `mots_clef` ADD FOREIGN KEY (`id_mot`) REFERENCES `comporte` (`id_mot`);
+
+ALTER TABLE `articles` ADD FOREIGN KEY (`id_article`) REFERENCES `exprime` (`id_article`);
+
+ALTER TABLE `sentiments` ADD FOREIGN KEY (`id_sentiment`) REFERENCES `exprime` (`id_sentiment`);
